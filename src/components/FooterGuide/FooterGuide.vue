@@ -1,0 +1,11 @@
+<template>
+	<div>FooterGuide</div>
+</template>
+<script>
+export default {
+	data() {
+		return {}
+	}
+}
+</script>
+<style></style>
