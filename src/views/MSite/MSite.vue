@@ -146,6 +146,7 @@
 							</div>
 						</a>
 					</li>
+
 					<li class="shop_li border-1px">
 						<a>
 							<div class="shop_left">
@@ -192,8 +193,8 @@
 	</div>
 </template>
 <script>
-import HeaderTop from '../../components/HeaderTop/HeaderTop'
-import Swiper from '../../components/Swiper/Swiper'
+import HeaderTop from '@/components/HeaderTop'
+import Swiper from '@/components/Swiper/Swiper'
 
 export default {
 	name: 'MSite',

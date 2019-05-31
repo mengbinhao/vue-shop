@@ -9,7 +9,7 @@
 	</div>
 </template>
 <script>
-import HeaderTop from '../../components/HeaderTop/HeaderTop'
+import HeaderTop from '../../components/HeaderTop'
 
 export default {
 	name: 'Order',

@@ -91,7 +91,7 @@
 	</div>
 </template>
 <script>
-import HeaderTop from '../../components/HeaderTop/HeaderTop'
+import HeaderTop from '@/components/HeaderTop'
 
 export default {
 	name: 'Profile',
@@ -104,7 +104,7 @@ export default {
 }
 </script>
 <style lang="stylus" scoped>
-@import '../../common/stylus/mixins.styl';
+@import '../common/stylus/mixins.styl';
 
 .profile { // 我的
   width: 100%;

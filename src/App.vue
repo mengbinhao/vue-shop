@@ -5,7 +5,7 @@
 	</div>
 </template>
 <script>
-import FooterGuide from './components/FooterGuide/FooterGuide'
+import FooterGuide from './components/FooterGuide'
 
 export default {
 	components: {

@@ -13,7 +13,7 @@
 	</div>
 </template>
 <script>
-import HeaderTop from '../../components/HeaderTop/HeaderTop'
+import HeaderTop from '@/components/HeaderTop'
 
 export default {
 	name: 'Search',
@@ -26,7 +26,7 @@ export default {
 }
 </script>
 <style lang="stylus" scoped>
-@import '../../common/stylus/mixins.styl';
+@import '../common/stylus/mixins.styl';
 
 .search {
   width: 100%;
