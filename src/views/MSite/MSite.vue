@@ -3,6 +3,7 @@
 </template>
 <script>
 export default {
+	name: 'MSite',
 	data() {
 		return {}
 	}
