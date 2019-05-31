@@ -1,10 +1,6 @@
 <template>
 	<div class="order">
-		<header class="header">
-			<a class="header_title">
-				<span class="header_title_text">订单列表</span>
-			</a>
-		</header>
+		<HeaderTop title="订单列表" />
 		<section class="order_no_login">
 			<img src="./images/person.png" />
 			<h3>登录后查看外卖订单</h3>
@@ -13,10 +9,15 @@
 	</div>
 </template>
 <script>
+import HeaderTop from '../../components/HeaderTop/HeaderTop'
+
 export default {
 	name: 'Order',
 	data() {
 		return {}
+	},
+	components: {
+		HeaderTop
 	}
 }
 </script>
@@ -42,11 +43,6 @@ export default {
       transform: translateY(-50%);
       width: 10%;
       height: 50%;
-
-      .icon-sousuo {
-        font-size: 25px;
-        color: #fff;
-      }
     }
 
     .header_title {
