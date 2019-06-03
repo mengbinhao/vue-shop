@@ -2,21 +2,58 @@
 	<div class="profile">
 		<HeaderTop title="我的" />
 		<section class="profile-number">
-			<a href="javascript:" class="profile-link">
+			<!-- <router-link to="/login" class="profile-link">
 				<div class="profile_image">
-					<i class="iconfont icon-person"></i>
+					<span class="item_icon">
+						<svg class="icon" aria-hidden="true">
+							<use xlink:href="#icon-person"></use>
+						</svg>
+					</span>
 				</div>
 				<div class="user-info">
 					<p class="user-info-top">登录/注册</p>
 					<p>
 						<span class="user-icon">
-							<i class="iconfont icon-shouji icon-mobile"></i>
+							<svg class="icon" aria-hidden="true">
+								<use xlink:href="#icon-mobile"></use>
+							</svg>
 						</span>
 						<span class="icon-mobile-number">暂无绑定手机号</span>
 					</p>
 				</div>
 				<span class="arrow">
-					<i class="iconfont icon-jiantou1"></i>
+					<svg class="icon" aria-hidden="true">
+						<use xlink:href="#icon-arrow-right"></use>
+					</svg>
+				</span>
+      </router-link>-->
+			<a
+				href="javascript:"
+				class="profile-link"
+				@click="$router.push({ name: 'Login' })"
+			>
+				<div class="profile_image">
+					<span class="item_icon">
+						<svg class="icon" aria-hidden="true">
+							<use xlink:href="#icon-person"></use>
+						</svg>
+					</span>
+				</div>
+				<div class="user-info">
+					<p class="user-info-top">登录/注册</p>
+					<p>
+						<span class="user-icon">
+							<svg class="icon" aria-hidden="true">
+								<use xlink:href="#icon-mobile"></use>
+							</svg>
+						</span>
+						<span class="icon-mobile-number">暂无绑定手机号</span>
+					</p>
+				</div>
+				<span class="arrow">
+					<svg class="icon" aria-hidden="true">
+						<use xlink:href="#icon-arrow-right"></use>
+					</svg>
 				</span>
 			</a>
 		</section>
@@ -106,8 +143,9 @@ export default {
 <style lang="stylus" scoped>
 @import '../common/stylus/mixins.styl';
 
-.profile { // 我的
+.profile {
   width: 100%;
+  overflow: hidden; // fix scroll exist if previous page scroll down
 
   .header {
     background-color: #02a774;
@@ -180,9 +218,13 @@ export default {
         overflow: hidden;
         vertical-align: top;
 
-        .icon-person {
-          background: #e4e4e4;
-          font-size: 62px;
+        span {
+          .icon {
+            font-size: 62px;
+            width: 1em;
+            height: 1em;
+            fill: #e4e4e4;
+          }
         }
       }
 
@@ -207,8 +249,12 @@ export default {
             width: 20px;
             height: 20px;
 
-            .icon-mobile {
-              font-size: 30px;
+            .icon {
+              font-size: 20px;
+              width: 1em;
+              height: 1em;
+              fill: currentColor;
+              overflow: hidden;
               vertical-align: text-top;
             }
           }
@@ -227,7 +273,9 @@ export default {
         right: 15px;
         top: 40%;
 
-        .icon-jiantou1 {
+        .icon {
+          width: 1em;
+          height: 1em;
           color: #fff;
           font-size: 5px;
         }

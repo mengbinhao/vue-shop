@@ -1,5 +1,6 @@
 <script>
 const fullStar = {
+	name: 'fullStar',
 	render(h) {
 		return h('span', {
 			class: {
@@ -11,6 +12,7 @@ const fullStar = {
 }
 
 const halfStar = {
+	name: 'halfStar',
 	render(h) {
 		return h('span', {
 			class: {
@@ -22,6 +24,7 @@ const halfStar = {
 }
 
 const offStar = {
+	name: 'offStar',
 	render(h) {
 		return h('span', {
 			class: {
