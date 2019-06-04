@@ -11,8 +11,8 @@ export const reqCategorys = () => ajax(`${base}/index_category`)
 /**
  * 获取 msite 商铺列表(根据经纬度)
  */
-export const reqShops = ({ latitude, longitude }) =>
-	ajax(`${base}/shops`, { latitude, longitude })
+export const reqShops = (longitude, latitude) =>
+	ajax(`${base}/shops`, { longitude, latitude })
 /**
  * 账号密码登录
  */

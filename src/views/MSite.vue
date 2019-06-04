@@ -1,6 +1,6 @@
 <template>
 	<div class="msite">
-		<HeaderTop title="昌平区北七家宏福科技园(337省道北)">
+		<HeaderTop :title="address.name">
 			<template #left>
 				<span class="header_search">
 					<svg class="icon" aria-hidden="true">
@@ -24,6 +24,7 @@
 import HeaderTop from '@/components/HeaderTop'
 import Swiper from '@/components/Swiper/Swiper'
 import ShopList from '@/components/ShopList/ShopList'
+import { mapState } from 'vuex'
 
 export default {
 	name: 'MSite',
@@ -46,6 +47,9 @@ export default {
 				}
 			}
 		}
+	},
+	computed: {
+		...mapState(['address'])
 	}
 }
 </script>

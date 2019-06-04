@@ -4,7 +4,7 @@
 			href="javascript:;"
 			@click="goto('/msite')"
 			class="guide_item"
-			:class="{ on: $route.path === '/msite' || $route.path === '' }"
+			:class="{ on: $route.path === '/msite' || $route.path === '/' }"
 		>
 			<span class="item_icon">
 				<svg class="icon" aria-hidden="true">
