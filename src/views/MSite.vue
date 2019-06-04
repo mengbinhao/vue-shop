@@ -24,7 +24,7 @@
 import HeaderTop from '@/components/HeaderTop'
 import Swiper from '@/components/Swiper/Swiper'
 import ShopList from '@/components/ShopList/ShopList'
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
 	name: 'MSite',
@@ -45,8 +45,15 @@ export default {
 				pagination: {
 					el: '.swiper-pagination'
 				}
-			}
+			},
+			shops: []
 		}
+	},
+	methods: {
+		...mapActions(['getCategories'])
+	},
+	mounted() {
+		this.getCategories()
 	},
 	computed: {
 		...mapState(['address'])

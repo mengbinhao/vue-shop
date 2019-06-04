@@ -3,108 +3,25 @@
 		<div class="swiper-container">
 			<div class="swiper-wrapper">
 				<div class="swiper-slide">
-					<a href="javascript:" class="link_to_food">
-						<div class="food_container">
-							<img src="./images/nav/1.jpg" />
+					<a
+						href="javascript:"
+						class="link_to_food"
+						v-for="(category, index) in categories"
+						:key="index"
+					>
+						<div
+							class="food_container"
+							v-for="(item, idx) in category"
+							:key="idx"
+						>
+							<img src="item." />
 						</div>
 						<span>甜品饮品</span>
 					</a>
-					<a href="javascript:" class="link_to_food">
-						<div class="food_container">
-							<img src="./images/nav/2.jpg" />
-						</div>
-						<span>商超便利</span>
-					</a>
-					<a href="javascript:" class="link_to_food">
-						<div class="food_container">
-							<img src="./images/nav/3.jpg" />
-						</div>
-						<span>美食</span>
-					</a>
-					<a href="javascript:" class="link_to_food">
-						<div class="food_container">
-							<img src="./images/nav/4.jpg" />
-						</div>
-						<span>简餐</span>
-					</a>
-					<a href="javascript:" class="link_to_food">
-						<div class="food_container">
-							<img src="./images/nav/5.jpg" />
-						</div>
-						<span>新店特惠</span>
-					</a>
-					<a href="javascript:" class="link_to_food">
-						<div class="food_container">
-							<img src="./images/nav/6.jpg" />
-						</div>
-						<span>准时达</span>
-					</a>
-					<a href="javascript:" class="link_to_food">
-						<div class="food_container">
-							<img src="./images/nav/7.jpg" />
-						</div>
-						<span>预订早餐</span>
-					</a>
-					<a href="javascript:" class="link_to_food">
-						<div class="food_container">
-							<img src="./images/nav/8.jpg" />
-						</div>
-						<span>土豪推荐</span>
-					</a>
 				</div>
-				<div class="swiper-slide">
-					<a href="javascript:" class="link_to_food">
-						<div class="food_container">
-							<img src="./images/nav/9.jpg" />
-						</div>
-						<span>甜品饮品</span>
-					</a>
-					<a href="javascript:" class="link_to_food">
-						<div class="food_container">
-							<img src="./images/nav/10.jpg" />
-						</div>
-						<span>商超便利</span>
-					</a>
-					<a href="javascript:" class="link_to_food">
-						<div class="food_container">
-							<img src="./images/nav/11.jpg" />
-						</div>
-						<span>美食</span>
-					</a>
-					<a href="javascript:" class="link_to_food">
-						<div class="food_container">
-							<img src="./images/nav/12.jpg" />
-						</div>
-						<span>简餐</span>
-					</a>
-					<a href="javascript:" class="link_to_food">
-						<div class="food_container">
-							<img src="./images/nav/13.jpg" />
-						</div>
-						<span>新店特惠</span>
-					</a>
-					<a href="javascript:" class="link_to_food">
-						<div class="food_container">
-							<img src="./images/nav/14.jpg" />
-						</div>
-						<span>准时达</span>
-					</a>
-					<a href="javascript:" class="link_to_food">
-						<div class="food_container">
-							<img src="./images/nav/1.jpg" />
-						</div>
-						<span>预订早餐</span>
-					</a>
-					<a href="javascript:" class="link_to_food">
-						<div class="food_container">
-							<img src="./images/nav/2.jpg" />
-						</div>
-						<span>土豪推荐</span>
-					</a>
-				</div>
+				<!-- Add Pagination -->
+				<div class="swiper-pagination"></div>
 			</div>
-			<!-- Add Pagination -->
-			<div class="swiper-pagination"></div>
 		</div>
 	</nav>
 </template>
@@ -114,6 +31,11 @@ import 'swiper/dist/css/swiper.min.css'
 
 export default {
 	name: 'Swiper',
+	data() {
+		return {
+			categories: []
+		}
+	},
 	props: {
 		options: {
 			type: Object,
@@ -134,6 +56,27 @@ export default {
 	},
 	mounted() {
 		this.swiper = new Swiper('.swiper-container', this.options)
+	},
+	watch: {
+		'$store.state.categories': 'buildCategoriesArr'
+	},
+	methods: {
+		buildCategoriesArr(val) {
+			console.log('-----' + val)
+			let arr = []
+			let oneSlice = []
+			val.forEach(item => {
+				if (oneSlice.length === 0) {
+					oneSlice = []
+				}
+				if (oneSlice.length === 8) {
+					arr.push(oneSlice)
+				}
+				oneSlice.push(item)
+			})
+			this.categories = arr
+			console.log(this.categories)
+		}
 	},
 	beforeDestroy() {
 		this.swiper.destroy()
