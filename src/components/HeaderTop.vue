@@ -2,9 +2,7 @@
 	<header class="header">
 		<slot name="left" />
 		<span class="header_title">
-			<span class="header_title_text ellipsis">
-				{{ title }}
-			</span>
+			<span class="header_title_text ellipsis">{{ title }}</span>
 		</span>
 		<slot name="right" />
 	</header>
@@ -17,9 +15,6 @@ export default {
 			type: String,
 			default: ''
 		}
-	},
-	data() {
-		return {}
 	}
 }
 </script>

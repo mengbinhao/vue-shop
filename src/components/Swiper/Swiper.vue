@@ -2,38 +2,38 @@
 	<nav class="msite_nav">
 		<div class="swiper-container">
 			<div class="swiper-wrapper">
-				<div class="swiper-slide">
+				<div
+					class="swiper-slide"
+					v-for="(category, index) in categoriesArr"
+					:key="index"
+				>
 					<a
 						href="javascript:"
 						class="link_to_food"
-						v-for="(category, index) in categories"
-						:key="index"
+						v-for="(item, idx) in category"
+						:key="idx"
 					>
-						<div
-							class="food_container"
-							v-for="(item, idx) in category"
-							:key="idx"
-						>
-							<img src="item." />
+						<div class="food_container">
+							<img :src="baseImageUrl + item.image_url" />
 						</div>
-						<span>甜品饮品</span>
+						<span>{{ item.title }}</span>
 					</a>
 				</div>
-				<!-- Add Pagination -->
-				<div class="swiper-pagination"></div>
 			</div>
+			<div class="swiper-pagination"></div>
 		</div>
 	</nav>
 </template>
 <script>
 import Swiper from 'swiper'
 import 'swiper/dist/css/swiper.min.css'
+import { mapState } from 'vuex'
 
 export default {
 	name: 'Swiper',
 	data() {
 		return {
-			categories: []
+			baseImageUrl: 'https://fuss10.elemecdn.com'
 		}
 	},
 	props: {
@@ -54,28 +54,30 @@ export default {
 			}
 		}
 	},
-	mounted() {
-		this.swiper = new Swiper('.swiper-container', this.options)
-	},
 	watch: {
-		'$store.state.categories': 'buildCategoriesArr'
+		categories() {
+			//data alreay fetched, and DOM has been updated, then new swiper
+			this.$nextTick(() => {
+				this.swiper = new Swiper('.swiper-container', this.options)
+			})
+		}
 	},
-	methods: {
-		buildCategoriesArr(val) {
-			console.log('-----' + val)
+	computed: {
+		...mapState(['categories']),
+		categoriesArr() {
+			const { categories } = this
 			let arr = []
 			let oneSlice = []
-			val.forEach(item => {
-				if (oneSlice.length === 0) {
+			categories.forEach(item => {
+				if (oneSlice.length === 8) {
 					oneSlice = []
 				}
-				if (oneSlice.length === 8) {
+				if (oneSlice.length === 0) {
 					arr.push(oneSlice)
 				}
 				oneSlice.push(item)
 			})
-			this.categories = arr
-			console.log(this.categories)
+			return arr
 		}
 	},
 	beforeDestroy() {
