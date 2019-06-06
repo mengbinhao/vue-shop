@@ -4,7 +4,7 @@
 			<div class="swiper-wrapper">
 				<div
 					class="swiper-slide"
-					v-for="(category, index) in categoriesArr"
+					v-for="(category, index) in categories"
 					:key="index"
 				>
 					<a
@@ -27,13 +27,13 @@
 <script>
 import Swiper from 'swiper'
 import 'swiper/dist/css/swiper.min.css'
-import { mapState } from 'vuex'
 
 export default {
 	name: 'Swiper',
 	data() {
 		return {
-			baseImageUrl: 'https://fuss10.elemecdn.com'
+			baseImageUrl: 'https://fuss10.elemecdn.com',
+			categories: []
 		}
 	},
 	props: {
@@ -54,21 +54,11 @@ export default {
 			}
 		}
 	},
-	watch: {
-		categories() {
-			//data alreay fetched, and DOM has been updated, then new swiper
-			this.$nextTick(() => {
-				this.swiper = new Swiper('.swiper-container', this.options)
-			})
-		}
-	},
-	computed: {
-		...mapState(['categories']),
-		categoriesArr() {
-			const { categories } = this
+	methods: {
+		buildSwiperArr(val) {
 			let arr = []
 			let oneSlice = []
-			categories.forEach(item => {
+			val.forEach(item => {
 				if (oneSlice.length === 8) {
 					oneSlice = []
 				}
@@ -77,8 +67,17 @@ export default {
 				}
 				oneSlice.push(item)
 			})
-			return arr
+			this.categories = arr
+		},
+		buildSwiper() {
+			//data alreay fetched, and DOM has been updated, then new swiper
+			this.$nextTick(() => {
+				this.swiper = new Swiper('.swiper-container', this.options)
+			})
 		}
+	},
+	watch: {
+		'$store.state.categories': ['buildSwiperArr', 'buildSwiper']
 	},
 	beforeDestroy() {
 		this.swiper.destroy()
