@@ -30,6 +30,7 @@ export default {
 
 .search {
   width: 100%;
+  overflow: hidden;
 
   .search_form {
     clearFix();

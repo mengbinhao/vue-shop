@@ -1,6 +1,6 @@
 <template>
 	<nav class="msite_nav">
-		<div class="swiper-container">
+		<div class="swiper-container" v-if="categories.length">
 			<div class="swiper-wrapper">
 				<div
 					class="swiper-slide"
@@ -22,6 +22,8 @@
 			</div>
 			<div class="swiper-pagination"></div>
 		</div>
+
+		<img src="./images/msite_back.svg" alt="back" v-else />
 	</nav>
 </template>
 <script>

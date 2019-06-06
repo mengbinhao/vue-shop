@@ -1,35 +1,43 @@
 <template>
-	<div class="shop_container">
+	<div class="shop_container" v-if="shops.length">
 		<ul class="shop_list">
 			<li v-for="shop in shops" :key="shop.id" class="shop_li border-1px">
 				<a>
 					<div class="shop_left">
-						<img class="shop_img" :src="`${shop.src}`" />
+						<img class="shop_img" :src="shop.image_path" />
 					</div>
 					<div class="shop_right">
 						<section class="shop_detail_header">
-							<h4 class="shop_title ellipsis">{{ shop.title }}</h4>
+							<h4 class="shop_title ellipsis">{{ shop.name }}</h4>
 							<ul class="shop_detail_ul">
-								<li class="supports">保</li>
-								<li class="supports">准</li>
-								<li class="supports">票</li>
+								<li
+									class="supports"
+									v-for="support in shop.supports"
+									:key="support.id"
+								>
+									{{ support.icon_name }}
+								</li>
 							</ul>
 						</section>
 						<section class="shop_rating_order">
 							<section class="shop_rating_order_left">
 								<Star :stars="shop.rating" />
 								<div class="rating_section">{{ shop.rating }}</div>
-								<div class="order_section">月售{{ shop.sales }}单</div>
+								<div class="order_section">
+									月售{{ shop.recent_order_num }}单
+								</div>
 							</section>
 							<section class="shop_rating_order_right">
-								<span class="delivery_style delivery_right">硅谷专送</span>
+								<span class="delivery_style delivery_right">
+									{{ shop.delivery_mode.text }}
+								</span>
 							</section>
 						</section>
 						<section class="shop_distance">
 							<p class="shop_delivery_msg">
-								<span>¥20起送</span>
+								<span>¥{{ shop.float_minimum_order_amount }}起送</span>
 								<span class="segmentation">/</span>
-								<span>配送费约¥5</span>
+								<span>配送费约¥{{ shop.float_delivery_fee }}</span>
 							</p>
 						</section>
 					</div>
@@ -37,23 +45,24 @@
 			</li>
 		</ul>
 	</div>
+	<div v-else>
+		<ul>
+			<li v-for="i in 10" :key="i">
+				<img src="./images/shop_back.svg" alt="back" />
+			</li>
+		</ul>
+	</div>
 </template>
 <script>
 import Star from './Star'
+import { mapState } from 'vuex'
+
 export default {
 	components: {
 		Star
 	},
-	props: {
-		shops: {
-			type: Array,
-			default: () => []
-		}
-	},
-	data() {
-		return {
-			data: require('./images/shop/1.jpg')
-		}
+	computed: {
+		...mapState(['shops'])
 	}
 }
 </script>
