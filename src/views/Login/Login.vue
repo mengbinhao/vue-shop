@@ -34,7 +34,6 @@
 								class="get_verification"
 								:class="{ rightPhone }"
 								@click.prevent="getVerificationCode"
-								ref="btn"
 							>
 								{{ countdown > 0 ? `已发送(${countdown}s)` : '获取验证码' }}
 							</button>
@@ -145,16 +144,16 @@ export default {
 		AlertTip
 	},
 	methods: {
-		getVerificationCode() {
+		getVerificationCode(e) {
 			if (!this.intervalId) {
-				const _this = this
-				this.$refs.btn.classList.remove('rightPhone')
+				e.target.classList.remove('rightPhone')
 				this.countdown = 5
 				this.intervalId = setInterval(() => {
+					console.log(this)
 					this.countdown--
 					if (this.countdown <= 0) {
-						clearInterval(_this.intervalId)
-						_this.$refs.btn.classList.add('rightPhone')
+						clearInterval(this.intervalId)
+						e.target.classList.add('rightPhone')
 					}
 				}, 1000)
 
