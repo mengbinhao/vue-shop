@@ -34,6 +34,7 @@
 								class="get_verification"
 								:class="{ rightPhone }"
 								@click.prevent="getVerificationCode"
+								ref="btn"
 							>
 								{{ countdown > 0 ? `已发送(${countdown}s)` : '获取验证码' }}
 							</button>
@@ -85,9 +86,9 @@
 										class="switch_circle"
 										:class="{ right: showPassword }"
 									></div>
-									<span class="switch_text">
-										{{ showPassword ? 'abc' : '...' }}
-									</span>
+									<span class="switch_text">{{
+										showPassword ? 'abc' : '...'
+									}}</span>
 								</div>
 							</section>
 							<section class="login_message">
@@ -145,12 +146,15 @@ export default {
 	},
 	methods: {
 		getVerificationCode() {
-			if (!this.countdown) {
-				this.countdown = 10
-				const intervalId = setInterval(() => {
+			if (!this.intervalId) {
+				const _this = this
+				this.$refs.btn.classList.remove('rightPhone')
+				this.countdown = 5
+				this.intervalId = setInterval(() => {
 					this.countdown--
 					if (this.countdown <= 0) {
-						clearInterval(intervalId)
+						clearInterval(_this.intervalId)
+						_this.$refs.btn.classList.add('rightPhone')
 					}
 				}, 1000)
 
