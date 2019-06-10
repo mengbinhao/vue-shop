@@ -85,9 +85,9 @@
 										class="switch_circle"
 										:class="{ right: showPassword }"
 									></div>
-									<span class="switch_text">{{
-										showPassword ? 'abc' : '...'
-									}}</span>
+									<span class="switch_text">
+										{{ showPassword ? 'abc' : '...' }}
+									</span>
 								</div>
 							</section>
 							<section class="login_message">
@@ -125,6 +125,7 @@
 </template>
 <script>
 import AlertTip from '@/components/AlertTip'
+import { reqSendCode } from '@/api'
 
 export default {
 	data() {
@@ -145,12 +146,11 @@ export default {
 		AlertTip
 	},
 	methods: {
-		getVerificationCode(e) {
+		async getVerificationCode(e) {
 			if (!this.intervalId) {
 				e.target.classList.remove('rightPhone')
 				this.countdown = 5
 				this.intervalId = setInterval(() => {
-					console.log(this)
 					this.countdown--
 					if (this.countdown <= 0) {
 						clearInterval(this.intervalId)
@@ -159,6 +159,18 @@ export default {
 				}, 1000)
 
 				//send Ajax
+				const ret = await reqSendCode(this.phone)
+				//handle exception
+				if (ret.code === 1) {
+					this.showTip(ret.msg)
+
+					if (this.countdown) {
+						this.countdown = 0
+						clearInterval(this.intervalId)
+						e.target.classList.add('rightPhone')
+						this.intervalId = null
+					}
+				}
 			}
 		},
 		getCaptcha(e) {
@@ -179,10 +191,12 @@ export default {
 			} else {
 				const { name, password, captcha } = this
 				if (!name) {
-					this.showTip('eed correct name')
+					this.showTip('need correct name')
 				} else if (!password) {
-					this.showTip('eed correct password')
-				} else if (!captcha) console.log(this.showTip('eed correct captcha'))
+					this.showTip('need correct password')
+				} else if (!captcha) {
+					this.showTip('need correct captcha')
+				}
 			}
 		},
 		closeTip() {

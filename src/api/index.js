@@ -16,7 +16,7 @@ export const reqShops = (longitude, latitude) =>
 /**
  * 账号密码登录
  */
-export const reqPwdLogin = (name, pwd, captcha) =>
+export const reqPwdLogin = ({ name, pwd, captcha }) =>
 	ajax(
 		`${base}/login_pwd`,
 		{
@@ -38,7 +38,7 @@ export const reqSmsLogin = (phone, code) =>
 /**
  * 获取用户信息(根据会话)
  */
-export const reqUser = () => ajax(`${base}/userinfo`)
+export const reqUserInfo = () => ajax(`${base}/userinfo`)
 /*** 请求登出
  */
 export const reqLogout = () => ajax(`${base}/logout`)
