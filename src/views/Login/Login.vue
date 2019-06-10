@@ -99,8 +99,9 @@
 								/>
 								<img
 									class="get_verification"
-									src="./images/captcha.svg"
+									src="http://localhost:3000/captcha"
 									alt="captcha"
+									@click="getCaptcha"
 								/>
 							</section>
 						</section>
@@ -159,6 +160,9 @@ export default {
 
 				//send Ajax
 			}
+		},
+		getCaptcha(e) {
+			e.target.src = `http://localhost:3000/captcha?time=${+new Date()}`
 		},
 		showTip(message) {
 			this.isShowTip = true
