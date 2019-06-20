@@ -40,14 +40,18 @@
 					</span>
 				</div>
 				<div class="user-info">
-					<p class="user-info-top">登录/注册</p>
+					<p class="user-info-top" v-if="!userInfo.phone">
+						{{ userInfo.name || '登录/注册' }}
+					</p>
 					<p>
 						<span class="user-icon">
 							<svg class="icon" aria-hidden="true">
 								<use xlink:href="#icon-mobile"></use>
 							</svg>
 						</span>
-						<span class="icon-mobile-number">暂无绑定手机号</span>
+						<span class="icon-mobile-number">
+							{{ userInfo.phone || '暂无绑定手机号' }}
+						</span>
 					</p>
 				</div>
 				<span class="arrow">
@@ -77,36 +81,48 @@
 			<!-- 我的订单 -->
 			<a href="javascript:" class="my_order">
 				<span>
-					<i class="iconfont icon-order-s"></i>
+					<svg class="iconfont" aria-hidden="true">
+						<use xlink:href="#icon-order"></use>
+					</svg>
 				</span>
 				<div class="my_order_div">
 					<span>我的订单</span>
 					<span class="my_order_icon">
-						<i class="iconfont icon-jiantou1"></i>
+						<svg class="icon" aria-hidden="true">
+							<use xlink:href="#icon-arrow-right"></use>
+						</svg>
 					</span>
 				</div>
 			</a>
 			<!-- 积分商城 -->
 			<a href="javascript:" class="my_order">
 				<span>
-					<i class="iconfont icon-jifen"></i>
+					<svg class="iconfont" aria-hidden="true">
+						<use xlink:href="#icon-score"></use>
+					</svg>
 				</span>
 				<div class="my_order_div">
 					<span>积分商城</span>
 					<span class="my_order_icon">
-						<i class="iconfont icon-jiantou1"></i>
+						<svg class="icon" aria-hidden="true">
+							<use xlink:href="#icon-arrow-right"></use>
+						</svg>
 					</span>
 				</div>
 			</a>
 			<!-- 硅谷外卖会员卡 -->
 			<a href="javascript:" class="my_order">
 				<span>
-					<i class="iconfont icon-vip"></i>
+					<svg class="iconfont" aria-hidden="true">
+						<use xlink:href="#icon-vip"></use>
+					</svg>
 				</span>
 				<div class="my_order_div">
 					<span>硅谷外卖会员卡</span>
 					<span class="my_order_icon">
-						<i class="iconfont icon-jiantou1"></i>
+						<svg class="icon" aria-hidden="true">
+							<use xlink:href="#icon-arrow-right"></use>
+						</svg>
 					</span>
 				</div>
 			</a>
@@ -115,12 +131,16 @@
 			<!-- 服务中心 -->
 			<a href="javascript:" class="my_order">
 				<span>
-					<i class="iconfont icon-fuwu"></i>
+					<svg class="iconfont" aria-hidden="true">
+						<use xlink:href="#icon-services"></use>
+					</svg>
 				</span>
 				<div class="my_order_div">
 					<span>服务中心</span>
 					<span class="my_order_icon">
-						<i class="iconfont icon-jiantou1"></i>
+						<svg class="icon" aria-hidden="true">
+							<use xlink:href="#icon-arrow-right"></use>
+						</svg>
 					</span>
 				</div>
 			</a>
@@ -129,6 +149,7 @@
 </template>
 <script>
 import HeaderTop from '@/components/HeaderTop'
+import { mapState } from 'vuex'
 
 export default {
 	name: 'Profile',
@@ -137,6 +158,9 @@ export default {
 	},
 	components: {
 		HeaderTop
+	},
+	computed: {
+		...mapState(['userInfo'])
 	}
 }
 </script>
@@ -361,7 +385,11 @@ export default {
 
         >.iconfont {
           margin-left: -10px;
-          font-size: 30px;
+          width: 1.5em;
+          height: 1.5em;
+          vertical-align: -0.15em;
+          fill: currentColor;
+          overflow: hidden;
         }
 
         .icon-order-s {
@@ -398,9 +426,14 @@ export default {
           width: 10px;
           height: 10px;
 
-          .icon-jiantou1 {
+          .icon {
             color: #bbb;
             font-size: 10px;
+            width: 1.5em;
+            height: 1.5em;
+            vertical-align: -0.15em;
+            fill: currentColor;
+            overflow: hidden;
           }
         }
       }

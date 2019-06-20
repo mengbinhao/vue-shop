@@ -85,9 +85,9 @@
 										class="switch_circle"
 										:class="{ right: showPassword }"
 									></div>
-									<span class="switch_text">{{
-										showPassword ? 'abc' : '...'
-									}}</span>
+									<span class="switch_text">
+										{{ showPassword ? 'abc' : '...' }}
+									</span>
 								</div>
 							</section>
 							<section class="login_message">
@@ -209,8 +209,8 @@ export default {
 			}
 
 			if (ret.code === 0) {
-				//const user = ret.data
 				//restore user to vuex
+				this.$store.dispatch('recordUserInfo', ret.data)
 				this.$router.push('Profile')
 			} else {
 				this.getCaptcha()
