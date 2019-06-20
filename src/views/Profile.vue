@@ -30,7 +30,11 @@
 			<a
 				href="javascript:"
 				class="profile-link"
-				@click="$router.push({ name: 'Login' })"
+				@click="
+					userInfo._id
+						? $router.push({ name: 'UserInfo' })
+						: $router.push({ name: 'Login' })
+				"
 			>
 				<div class="profile_image">
 					<span class="item_icon">
@@ -49,9 +53,9 @@
 								<use xlink:href="#icon-mobile"></use>
 							</svg>
 						</span>
-						<span class="icon-mobile-number">
-							{{ userInfo.phone || '暂无绑定手机号' }}
-						</span>
+						<span class="icon-mobile-number">{{
+							userInfo.phone || '暂无绑定手机号'
+						}}</span>
 					</p>
 				</div>
 				<span class="arrow">

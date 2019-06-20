@@ -5,6 +5,7 @@ import Order from './views/Order/Order'
 import Profile from './views/Profile'
 import Search from './views/Search'
 import Login from './views/Login/Login'
+import UserInfo from './views/UserInfo'
 
 Vue.use(Router)
 
@@ -52,6 +53,11 @@ export default new Router({
 			path: '/login',
 			name: 'Login',
 			component: Login
+		},
+		{
+			path: '/userinfo',
+			name: 'UserInfo',
+			component: UserInfo
 		}
 		// {
 		// 	path: '/about',

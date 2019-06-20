@@ -2,16 +2,24 @@
 	<div class="msite">
 		<HeaderTop :title="address.name">
 			<template #left>
-				<span class="header_search">
+				<router-link class="header_search" to="/search">
 					<svg class="icon" aria-hidden="true">
 						<use xlink:href="#icon-find"></use>
 					</svg>
-				</span>
+				</router-link>
 			</template>
 			<template #right>
-				<span class="header_login">
-					<span class="header_login_text">登录|注册</span>
-				</span>
+				<router-link
+					class="header_login"
+					:to="userInfo._id ? '/userinfo' : 'login'"
+				>
+					<span class="header_login_text" v-if="userInfo._id">
+						<svg class="icon" aria-hidden="true">
+							<use xlink:href="#icon-person"></use>
+						</svg>
+					</span>
+					<span class="header_login_text" v-else>登录|注册</span>
+				</router-link>
 			</template>
 		</HeaderTop>
 
@@ -56,7 +64,7 @@ export default {
 		this.getCategories()
 	},
 	computed: {
-		...mapState(['address'])
+		...mapState(['address', 'userInfo'])
 	}
 }
 </script>

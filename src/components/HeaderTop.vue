@@ -18,7 +18,7 @@ export default {
 	}
 }
 </script>
-<style lang="stylus" scoped>
+<style lang="stylus">
 .header {
   background-color: #02a774;
   position: fixed;
