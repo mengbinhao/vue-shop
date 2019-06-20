@@ -85,9 +85,9 @@
 										class="switch_circle"
 										:class="{ right: showPassword }"
 									></div>
-									<span class="switch_text">
-										{{ showPassword ? 'abc' : '...' }}
-									</span>
+									<span class="switch_text">{{
+										showPassword ? 'abc' : '...'
+									}}</span>
 								</div>
 							</section>
 							<section class="login_message">
@@ -102,6 +102,7 @@
 									src="http://localhost:3000/captcha"
 									alt="captcha"
 									@click="getCaptcha"
+									ref="capcha"
 								/>
 							</section>
 						</section>
@@ -125,7 +126,7 @@
 </template>
 <script>
 import AlertTip from '@/components/AlertTip'
-import { reqSendCode } from '@/api'
+import { reqSendCode, reqSmsLogin, reqPwdLogin } from '@/api'
 
 export default {
 	data() {
@@ -149,7 +150,7 @@ export default {
 		async getVerificationCode(e) {
 			if (!this.intervalId) {
 				e.target.classList.remove('rightPhone')
-				this.countdown = 5
+				this.countdown = 10
 				this.intervalId = setInterval(() => {
 					this.countdown--
 					if (this.countdown <= 0) {
@@ -173,30 +174,47 @@ export default {
 				}
 			}
 		},
-		getCaptcha(e) {
-			e.target.src = `http://localhost:3000/captcha?time=${+new Date()}`
+		getCaptcha() {
+			this.$refs.capcha.src = `http://localhost:3000/captcha?time=${+new Date()}`
 		},
 		showTip(message) {
 			this.isShowTip = true
 			this.showTipText = message
 		},
-		login() {
+		async login() {
+			let ret
 			if (this.loginWay) {
-				const { rightPhone, verificationCode } = this
+				const { rightPhone, verificationCode, phone } = this
 				if (!rightPhone) {
 					this.showTip('need correct phone')
+					return
 				} else if (!/^\d{6}$/.test(verificationCode)) {
 					this.showTip('need correct verificationCode')
+					return
 				}
+				ret = await reqSmsLogin(phone, verificationCode)
 			} else {
 				const { name, password, captcha } = this
 				if (!name) {
 					this.showTip('need correct name')
+					return
 				} else if (!password) {
 					this.showTip('need correct password')
+					return
 				} else if (!captcha) {
 					this.showTip('need correct captcha')
+					return
 				}
+				ret = await reqPwdLogin({ name, password, captcha })
+			}
+
+			if (ret.code === 0) {
+				//const user = ret.data
+				//restore user to vuex
+				this.$router.push('Profile')
+			} else {
+				this.getCaptcha()
+				this.showTip(ret.msg)
 			}
 		},
 		closeTip() {
