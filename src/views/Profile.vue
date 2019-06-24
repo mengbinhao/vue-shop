@@ -164,7 +164,7 @@
 <script>
 import HeaderTop from '@/components/HeaderTop'
 import { mapState } from 'vuex'
-import { MessageBox } from 'mint-ui'
+import { MessageBox, Toast } from 'mint-ui'
 
 export default {
 	name: 'Profile',
@@ -182,6 +182,7 @@ export default {
 			MessageBox.confirm('Are you sure?').then(
 				() => {
 					this.$store.dispatch('logout')
+					Toast('logout successfully')
 				},
 				() => {}
 			)
