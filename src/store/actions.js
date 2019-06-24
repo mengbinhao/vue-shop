@@ -5,7 +5,7 @@ import {
 	RECEIVE_USERINFO
 } from './mutation-type'
 
-import { reqAddress, reqCategorys, reqShops } from '../api'
+import { reqAddress, reqCategorys, reqShops, reqUserInfo } from '../api'
 
 export default {
 	async getAddress({ commit, state }) {
@@ -33,5 +33,12 @@ export default {
 	},
 	recordUserInfo({ commit }, userInfo) {
 		commit(RECEIVE_USERINFO, { userInfo })
+	},
+	async getUserInfo({ commit }) {
+		const ret = await reqUserInfo()
+		if (ret.code === 0) {
+			const userInfo = ret.data
+			commit(RECEIVE_USERINFO, { userInfo })
+		}
 	}
 }
