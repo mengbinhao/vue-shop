@@ -42,3 +42,9 @@ export const reqUserInfo = () => ajax(`${base}/userinfo`)
 /*** 请求登出
  */
 export const reqLogout = () => ajax(`${base}/logout`)
+
+export const reqShopGoods = () => ajax('/goods')
+
+export const reqShopRating = () => ajax('/ratings')
+
+export const reqShopInfo = () => ajax('/info')

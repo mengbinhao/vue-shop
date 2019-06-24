@@ -3,7 +3,8 @@ import {
 	RECEIVE_CATEGORIES,
 	RECEIVE_SHOPS,
 	RECEIVE_USERINFO,
-	RESET_USERINFO
+	RESET_USERINFO,
+	RECEIVE_INFO
 } from './mutation-type'
 
 import {
@@ -11,7 +12,8 @@ import {
 	reqCategorys,
 	reqShops,
 	reqUserInfo,
-	reqLogout
+	reqLogout,
+	reqShopInfo
 } from '../api'
 
 export default {
@@ -52,6 +54,13 @@ export default {
 		const ret = await reqLogout()
 		if (ret.code === 0) {
 			commit(RESET_USERINFO)
+		}
+	},
+	async getShopInfo({ commit }) {
+		const ret = await reqShopInfo()
+		if (ret.code === 0) {
+			const info = ret.data
+			commit(RECEIVE_INFO, { info })
 		}
 	}
 }
