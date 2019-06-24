@@ -2,10 +2,17 @@ import {
 	RECEIVE_ADDRESS,
 	RECEIVE_CATEGORIES,
 	RECEIVE_SHOPS,
-	RECEIVE_USERINFO
+	RECEIVE_USERINFO,
+	RESET_USERINFO
 } from './mutation-type'
 
-import { reqAddress, reqCategorys, reqShops, reqUserInfo } from '../api'
+import {
+	reqAddress,
+	reqCategorys,
+	reqShops,
+	reqUserInfo,
+	reqLogout
+} from '../api'
 
 export default {
 	async getAddress({ commit, state }) {
@@ -39,6 +46,12 @@ export default {
 		if (ret.code === 0) {
 			const userInfo = ret.data
 			commit(RECEIVE_USERINFO, { userInfo })
+		}
+	},
+	async logout({ commit }) {
+		const ret = await reqLogout()
+		if (ret.code === 0) {
+			commit(RESET_USERINFO)
 		}
 	}
 }

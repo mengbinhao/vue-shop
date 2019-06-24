@@ -53,9 +53,9 @@
 								<use xlink:href="#icon-mobile"></use>
 							</svg>
 						</span>
-						<span class="icon-mobile-number">{{
-							userInfo.phone || '暂无绑定手机号'
-						}}</span>
+						<span class="icon-mobile-number">
+							{{ userInfo.phone || '暂无绑定手机号' }}
+						</span>
 					</p>
 				</div>
 				<span class="arrow">
@@ -149,11 +149,22 @@
 				</div>
 			</a>
 		</section>
+
+		<section class="profile_my_order border-1px">
+			<mt-button
+				type="danger"
+				style="width:100%"
+				v-if="userInfo._id"
+				@click="logout"
+				>logout</mt-button
+			>
+		</section>
 	</div>
 </template>
 <script>
 import HeaderTop from '@/components/HeaderTop'
 import { mapState } from 'vuex'
+import { MessageBox } from 'mint-ui'
 
 export default {
 	name: 'Profile',
@@ -165,6 +176,16 @@ export default {
 	},
 	computed: {
 		...mapState(['userInfo'])
+	},
+	methods: {
+		logout() {
+			MessageBox.confirm('Are you sure?').then(
+				() => {
+					this.$store.dispatch('logout')
+				},
+				() => {}
+			)
+		}
 	}
 }
 </script>
