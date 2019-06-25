@@ -50,7 +50,7 @@ export default {
 
   .iconfont {
     display: inline-block;
-    padding: 6px;
+    padding: 9px;
     line-height: 24px;
     font-size: 24px;
 
@@ -64,7 +64,6 @@ export default {
 
     .icon {
       width: 0.8em;
-      height: 1em;
       fill: green;
       overflow: hidden;
     }
@@ -73,9 +72,8 @@ export default {
   .cart-count {
     display: inline-block;
     vertical-align: top;
-    width: 12px;
-    padding-top: 67px;
-    padding-right: 6px;
+    padding-top: 71px;
+    padding-right: 8px;
     line-height: 24px;
     text-align: center;
     font-size: 10px;
