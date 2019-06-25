@@ -96,6 +96,10 @@ export default {
 			fs.on('scroll', pos => {
 				this.scrollY = Math.abs(pos.y)
 			})
+			//fix inertia scroll
+			fs.on('scrollEnd', pos => {
+				this.scrollY = Math.abs(pos.y)
+			})
 		},
 		_initTops() {
 			const tops = []
