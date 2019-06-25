@@ -8,6 +8,7 @@
 						v-for="(good, index) in goods"
 						:key="index"
 						:class="{ current: index === currentIndex }"
+						@click="clickMenuItem(index)"
 					>
 						<span class="text bottom-border-1px">
 							<img class="icon" :src="good.icon" v-if="good.icon" />
@@ -89,15 +90,18 @@ export default {
 	},
 	methods: {
 		_initScroll() {
-			new BScroll('.menu-wrapper')
-			const fs = new BScroll('.foods-wrapper', {
-				probeType: 2 //惯性和动画不触发,见API
+			new BScroll('.menu-wrapper', {
+				click: true
 			})
-			fs.on('scroll', pos => {
+			this.fs = new BScroll('.foods-wrapper', {
+				probeType: 2, //惯性和动画不触发,见API
+				click: true
+			})
+			this.fs.on('scroll', pos => {
 				this.scrollY = Math.abs(pos.y)
 			})
 			//fix inertia scroll
-			fs.on('scrollEnd', pos => {
+			this.fs.on('scrollEnd', pos => {
 				this.scrollY = Math.abs(pos.y)
 			})
 		},
@@ -110,6 +114,11 @@ export default {
 				tops.push(top)
 			})
 			this.tops = tops
+		},
+		clickMenuItem(index) {
+			const scrollY = -this.tops[index]
+			this.scrollY = scrollY
+			this.fs.scrollTo(0, scrollY, 300)
 		}
 	}
 }
