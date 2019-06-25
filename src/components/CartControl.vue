@@ -1,14 +1,18 @@
 <template>
 	<div class="cartcontrol">
 		<transition name="move">
-			<div class="iconfont" v-if="food.count" @click="updateFoodCount(false)">
+			<div
+				class="iconfont"
+				v-if="food.count"
+				@click.stop="updateFoodCount(false)"
+			>
 				<svg class="icon" aria-hidden="true">
 					<use xlink:href="#icon-remove-circle-outline"></use>
 				</svg>
 			</div>
 		</transition>
 		<div class="cart-count" v-if="food.count">{{ food.count }}</div>
-		<div class="iconfont" @click="updateFoodCount(true)">
+		<div class="iconfont" @click.stop="updateFoodCount(true)">
 			<svg class="icon" aria-hidden="true">
 				<use xlink:href="#icon-add-circle"></use>
 			</svg>

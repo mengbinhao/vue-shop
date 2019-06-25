@@ -30,6 +30,7 @@
 								class="food-item bottom-border-1px"
 								v-for="(food, idx) in good.foods"
 								:key="idx"
+								@click="showFood(food)"
 							>
 								<div class="icon">
 									<img width="57" height="57" :src="food.icon" />
@@ -57,12 +58,14 @@
 				</ul>
 			</div>
 		</div>
+		<Food :food="food" ref="food" />
 	</div>
 </template>
 <script>
 import { mapState } from 'vuex'
 import BScroll from '@better-scroll/core'
 import CartControl from '@/components/CartControl'
+import Food from '@/components/Food'
 
 export default {
 	mounted() {
@@ -75,12 +78,14 @@ export default {
 		})
 	},
 	components: {
-		CartControl
+		CartControl,
+		Food
 	},
 	data() {
 		return {
 			scrollY: 0,
-			tops: []
+			tops: [],
+			food: {}
 		}
 	},
 	computed: {
@@ -125,6 +130,11 @@ export default {
 			const scrollY = -this.tops[index]
 			this.scrollY = scrollY
 			this.fs.scrollTo(0, scrollY, 300)
+		},
+		showFood(food) {
+			this.food = food
+			//invoke child component method
+			this.$refs.food.toggleShow()
 		}
 	}
 }
