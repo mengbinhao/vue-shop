@@ -5,7 +5,9 @@ import {
 	RECEIVE_USERINFO,
 	RESET_USERINFO,
 	RECEIVE_INFO,
-	RECEIVE_GOODS
+	RECEIVE_GOODS,
+	INCREASE_FOOD_COUNT,
+	DECREASE_FOOD_COUNT
 } from './mutation-type'
 
 import {
@@ -71,6 +73,13 @@ export default {
 			const goods = ret.data
 			commit(RECEIVE_GOODS, { goods })
 			cb && cb()
+		}
+	},
+	updateFoodCount({ commit }, { isAdd, food }) {
+		if (isAdd) {
+			commit(INCREASE_FOOD_COUNT, { food })
+		} else {
+			commit(DECREASE_FOOD_COUNT, { food })
 		}
 	}
 }

@@ -18,7 +18,7 @@ export default {
 	}
 }
 </script>
-<style lang="stylus">
+<style lang="stylus" rel="stylesheet/stylus">
 .header {
   background-color: #02a774;
   position: fixed;

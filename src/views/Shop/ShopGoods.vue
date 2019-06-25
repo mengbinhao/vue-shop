@@ -47,7 +47,9 @@
 											>￥ {{ food.oldPrice }}</span
 										>
 									</div>
-									<div class="cartcontrol-wrapper">CartControl</div>
+									<div class="cartcontrol-wrapper">
+										<CartControl :food="food" />
+									</div>
 								</div>
 							</li>
 						</ul>
@@ -60,6 +62,7 @@
 <script>
 import { mapState } from 'vuex'
 import BScroll from '@better-scroll/core'
+import CartControl from '@/components/CartControl'
 
 export default {
 	mounted() {
@@ -70,6 +73,9 @@ export default {
 				this._initTops()
 			})
 		})
+	},
+	components: {
+		CartControl
 	},
 	data() {
 		return {
@@ -257,8 +263,8 @@ export default {
 
         .cartcontrol-wrapper {
           position: absolute;
-          right: 0;
-          bottom: 12px;
+          right: -25px;
+          bottom: -69px;
         }
       }
     }
