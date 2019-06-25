@@ -4,7 +4,8 @@ import {
 	RECEIVE_SHOPS,
 	RECEIVE_USERINFO,
 	RESET_USERINFO,
-	RECEIVE_INFO
+	RECEIVE_INFO,
+	RECEIVE_GOODS
 } from './mutation-type'
 
 import {
@@ -13,7 +14,8 @@ import {
 	reqShops,
 	reqUserInfo,
 	reqLogout,
-	reqShopInfo
+	reqShopInfo,
+	reqShopGoods
 } from '../api'
 
 export default {
@@ -61,6 +63,14 @@ export default {
 		if (ret.code === 0) {
 			const info = ret.data
 			commit(RECEIVE_INFO, { info })
+		}
+	},
+	async getShopGoods({ commit }, cb) {
+		const ret = await reqShopGoods()
+		if (ret.code === 0) {
+			const goods = ret.data
+			commit(RECEIVE_GOODS, { goods })
+			cb && cb()
 		}
 	}
 }
