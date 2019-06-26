@@ -52,6 +52,7 @@
 <script>
 import { mapState, mapGetters } from 'vuex'
 import CartControl from '@/components/CartControl'
+import BScroll from '@better-scroll/core'
 
 export default {
 	components: {
@@ -80,8 +81,23 @@ export default {
 				this.isShow = false
 				return false
 			}
+
+			if (this.isShow) {
+				this.$nextTick(() => {
+					if (!this.scroll) {
+						// eslint-disable-next-line vue/no-side-effects-in-computed-properties
+						this.scroll = new BScroll('.list-content', {
+							click: true
+						})
+					} else {
+						//recalculate BetterScroll to ensure scroll work properly when the structure of DOM changes
+						this.scroll.refresh()
+					}
+				})
+			}
 			return this.isShow
 		},
+
 		payClass() {
 			const { totalPrice } = this
 			const { minPrice } = this.info
