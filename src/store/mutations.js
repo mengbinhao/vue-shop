@@ -9,7 +9,8 @@ import {
 	RECEIVE_RATINGS,
 	RECEIVE_INFO,
 	INCREASE_FOOD_COUNT,
-	DECREASE_FOOD_COUNT
+	DECREASE_FOOD_COUNT,
+	CLEAR_CART
 } from './mutation-type'
 
 export default {
@@ -57,5 +58,11 @@ export default {
 				state.cartGoods.splice(state.cartGoods.indexOf(food), 1)
 			}
 		}
+	},
+	[CLEAR_CART](state) {
+		state.cartGoods.forEach(good => {
+			good.count = 0
+		})
+		state.cartGoods = []
 	}
 }

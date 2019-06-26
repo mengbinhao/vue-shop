@@ -14,3 +14,5 @@ export const RECEIVE_INFO = 'receive_info' // 接收商家信息
 
 export const INCREASE_FOOD_COUNT = 'increase_food_count'
 export const DECREASE_FOOD_COUNT = 'decrease_food_count'
+
+export const CLEAR_CART = 'clear_cart'
