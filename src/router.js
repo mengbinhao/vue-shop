@@ -8,7 +8,7 @@ import Login from './views/Login/Login'
 import UserInfo from './views/UserInfo'
 import Shop from './views/Shop/Shop'
 import ShopGoods from './views/Shop/ShopGoods'
-import ShopRating from './views/Shop/ShopRating'
+import ShopRatings from './views/Shop/ShopRatings'
 import ShopInfo from './views/Shop/ShopInfo'
 
 Vue.use(Router)
@@ -73,9 +73,9 @@ export default new Router({
 					component: ShopGoods
 				},
 				{
-					path: '/shop/rating',
-					name: 'ShopRating',
-					component: ShopRating
+					path: '/shop/ratings',
+					name: 'ShopRatings',
+					component: ShopRatings
 				},
 				{
 					path: '/shop/info',

@@ -8,7 +8,8 @@ import {
 	RECEIVE_GOODS,
 	INCREASE_FOOD_COUNT,
 	DECREASE_FOOD_COUNT,
-	CLEAR_CART
+	CLEAR_CART,
+	RECEIVE_RATINGS
 } from './mutation-type'
 
 import {
@@ -18,7 +19,8 @@ import {
 	reqUserInfo,
 	reqLogout,
 	reqShopInfo,
-	reqShopGoods
+	reqShopGoods,
+	reqShopRating
 } from '../api'
 
 export default {
@@ -85,5 +87,12 @@ export default {
 	},
 	clearCart({ commit }) {
 		commit(CLEAR_CART)
+	},
+	async getShopRatings({ commit }) {
+		const ret = await reqShopRating()
+		if (ret.code === 0) {
+			const ratings = ret.data
+			commit(RECEIVE_RATINGS, { ratings })
+		}
 	}
 }
