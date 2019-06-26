@@ -57,6 +57,7 @@
 					</li>
 				</ul>
 			</div>
+			<ShopCart />
 		</div>
 		<Food :food="food" ref="food" />
 	</div>
@@ -66,6 +67,7 @@ import { mapState } from 'vuex'
 import BScroll from '@better-scroll/core'
 import CartControl from '@/components/CartControl'
 import Food from '@/components/Food'
+import ShopCart from '@/components/ShopCart'
 
 export default {
 	mounted() {
@@ -79,7 +81,8 @@ export default {
 	},
 	components: {
 		CartControl,
-		Food
+		Food,
+		ShopCart
 	},
 	data() {
 		return {

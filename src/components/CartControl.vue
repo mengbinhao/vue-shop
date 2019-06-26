@@ -72,7 +72,7 @@ export default {
   .cart-count {
     display: inline-block;
     vertical-align: top;
-    padding-top: 71px;
+    // padding-top: 71px;
     padding-right: 8px;
     line-height: 24px;
     text-align: center;

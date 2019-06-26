@@ -45,6 +45,7 @@ export default {
 			//food.count = 1
 			//count does not exist at first
 			Vue.set(food, 'count', 1)
+			state.cartGoods.push(food)
 		} else {
 			food.count++
 		}
@@ -52,6 +53,9 @@ export default {
 	[DECREASE_FOOD_COUNT](state, { food }) {
 		if (food.count) {
 			food.count--
+			if (food.count === 0) {
+				state.cartGoods.splice(state.cartGoods.indexOf(food), 1)
+			}
 		}
 	}
 }
