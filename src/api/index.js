@@ -48,3 +48,6 @@ export const reqShopGoods = () => ajax('/goods')
 export const reqShopRating = () => ajax('/ratings')
 
 export const reqShopInfo = () => ajax('/info')
+
+export const reqSearchShops = (geohash, keyword) =>
+	ajax(`${base}/search_shops`, { geohash, keyword })
