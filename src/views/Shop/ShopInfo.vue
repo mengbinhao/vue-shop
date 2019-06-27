@@ -81,17 +81,27 @@ export default {
 		}
 	},
 	mounted() {
-		new BScroll('.shop-info')
+		//fix refresh at this route, info is not initial
+		if (!this.info.pics) return
 
-		//this.setPiclistWidth()
-		new BScroll('.pic-wrapper', {
-			scrollX: true
-		})
+		this._initScroll()
 	},
 	methods: {
-		setPiclistWidth() {
-			debugger
-			this.$refs.picList.style.width = (120 + 6) * this.info.pics.length - 6
+		_initScroll() {
+			new BScroll('.shop-info')
+			this.$refs.picList.style.width =
+				(120 + 6) * this.info.pics.length - 6 + 'px'
+			new BScroll('.pic-wrapper', {
+				scrollX: true
+			})
+		}
+	},
+	//fix refresh at this route, info is not initial
+	watch: {
+		info() {
+			this.$nextTick(() => {
+				this._initScroll()
+			})
 		}
 	}
 }
