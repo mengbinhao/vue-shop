@@ -27,22 +27,38 @@
 			<div class="split"></div>
 			<div class="ratingselect">
 				<div class="rating-type border-1px">
-					<span class="block positive active">
+					<span
+						class="block positive"
+						:class="{ active: selectedType === 2 }"
+						@click="setSelectedType(2)"
+					>
 						全部
-						<span class="count">30</span>
+						<span class="count">{{ ratings.length }}</span>
 					</span>
-					<span class="block positive">
+					<span
+						class="block positive"
+						:class="{ active: selectedType === 0 }"
+						@click="setSelectedType(0)"
+					>
 						满意
-						<span class="count">28</span>
+						<span class="count">{{ satisfiedSize }}</span>
 					</span>
-					<span class="block negative">
+					<span
+						class="block negative"
+						:class="{ active: selectedType === 1 }"
+						@click="setSelectedType(1)"
+					>
 						不满意
-						<span class="count">2</span>
+						<span class="count">{{ ratings.length - satisfiedSize }}</span>
 					</span>
 				</div>
-				<div class="switch on">
+				<div class="switch on" @click="onlyShowText = !onlyShowText">
 					<span class="iconfont">
-						<svg class="icon" aria-hidden="true">
+						<svg
+							class="icon"
+							:class="{ iconGray: !onlyShowText }"
+							aria-hidden="true"
+						>
 							<use xlink:href="#icon-check-circle"></use>
 						</svg>
 					</span>
@@ -53,7 +69,7 @@
 				<ul>
 					<li
 						class="rating-item"
-						v-for="(rating, index) in ratings"
+						v-for="(rating, index) in filterRatings"
 						:key="index"
 					>
 						<div class="avatar">
@@ -94,17 +110,53 @@
 </template>
 <script>
 import Star from '../../components/ShopList/Star'
-import { mapState } from 'vuex'
+import BScroll from '@better-scroll/core'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
 	mounted() {
-		this.$store.dispatch('getShopRatings')
+		this.$store.dispatch('getShopRatings', () => {
+			this.$nextTick(() => {
+				new BScroll(this.$refs.ratings, {
+					click: true
+				})
+			})
+		})
 	},
 	components: {
 		Star
 	},
 	computed: {
-		...mapState(['info', 'ratings'])
+		...mapState(['info', 'ratings']),
+		...mapGetters(['satisfiedSize']),
+		filterRatings() {
+			const { onlyShowText, selectedType, ratings } = this
+			//condition 1
+			//  selectedType 0/1/2
+			//  rateType 0/1
+			//  selectedType === 2 || selectedType === rateType
+			//condition 2
+			//  onlyShowText true/false
+			//  text 有值/无值
+			return ratings.filter(rating => {
+				const { rateType, text } = rating
+				return (
+					(selectedType === 2 || selectedType === rateType) &&
+					(!onlyShowText || text.length > 0)
+				)
+			})
+		}
+	},
+	data() {
+		return {
+			onlyShowText: true,
+			selectedType: 2 //2全部 0满意 1不满意
+		}
+	},
+	methods: {
+		setSelectedType(type) {
+			this.selectedType = type
+		}
 	}
 }
 </script>
@@ -265,6 +317,10 @@ export default {
             vertical-align: middle;
             margin-right: 4px;
             font-size: 14px;
+          }
+
+          .iconGray {
+            fill: grey;
           }
         }
       }

@@ -88,11 +88,12 @@ export default {
 	clearCart({ commit }) {
 		commit(CLEAR_CART)
 	},
-	async getShopRatings({ commit }) {
+	async getShopRatings({ commit }, cb) {
 		const ret = await reqShopRating()
 		if (ret.code === 0) {
 			const ratings = ret.data
 			commit(RECEIVE_RATINGS, { ratings })
+			cb && cb()
 		}
 	}
 }
