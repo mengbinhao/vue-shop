@@ -10,26 +10,32 @@
 			/>
 			<input type="submit" class="search_submit" />
 		</form>
-		<section class="list">
+		<section class="list" v-if="!noSearchShops">
 			<ul class="list_container">
-				<li class="list_li">
+				<router-link
+					:to="{ path: '/shop', query: { id: item.id } }"
+					tag="li"
+					v-for="item in searchShops"
+					:key="item.id"
+					class="list_li"
+				>
 					<section class="item_left">
-						<img
-							src="https://i.loli.net/2019/06/27/5d14874f345f326511.png"
-							class="restaurant_img"
-						/>
+						<img :src="imgBaseUrl + item.image_path" class="restaurant_img" />
 					</section>
 					<section class="item_right">
 						<div class="item_right_text">
 							<p>
-								<span>aaa</span>
+								<span>{{ item.name }}</span>
 							</p>
-							<p>月售 671 单</p>
-							<p>20 元起送 / 距离 1058.2 公里</p>
+							<p>月售 {{ item.month_sales || item.recent_order_num }} 单</p>
+							<p>
+								{{ item.delivery_fee || item.float_minimum_order_amount }}
+								元起送 / 距离{{ item.distance }}
+							</p>
 						</div>
 					</section>
-				</li>
-				<li class="list_li">
+				</router-link>
+				<!-- <li class="list_li">
 					<section class="item_left">
 						<img
 							src="https://i.loli.net/2019/06/27/5d14874fd161045201.png"
@@ -45,19 +51,23 @@
 							<p>20 元起送 / 距离 1058.2 公里</p>
 						</div>
 					</section>
-				</li>
+        </li>-->
 			</ul>
 		</section>
+		<div class="search_none" v-else>很抱歉！无搜索结果</div>
 	</section>
 </template>
 <script>
 import HeaderTop from '@/components/HeaderTop'
+import { mapState } from 'vuex'
 
 export default {
 	name: 'Search',
 	data() {
 		return {
-			keyword: ''
+			keyword: '',
+			imgBaseUrl: 'http://cangdu.org:8001/img/',
+			noSearchShops: false
 		}
 	},
 	components: {
@@ -68,6 +78,18 @@ export default {
 			const keyword = this.keyword.trim()
 			if (keyword) {
 				this.$store.dispatch('getSearchShops', keyword)
+			}
+		}
+	},
+	computed: {
+		...mapState(['searchShops'])
+	},
+	watch: {
+		searchShops(val) {
+			if (!val.length) {
+				this.noSearchShops = true
+			} else {
+				this.noSearchShops = false
 			}
 		}
 	}
